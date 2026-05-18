@@ -5,64 +5,291 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SELeven-SD</title>
   <meta name="description" content="SELeven-SD 的个人主页（GitHub Pages）。" />
+  <meta name="color-scheme" content="dark light" />
   <style>
-    body { margin:0; padding:40px; background:#0b1220; color:#e6edf3;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; }
-    .wrap { max-width: 920px; margin: 0 auto; }
-    .card { background:#111a2e; border:1px solid #22304d; border-radius:16px; padding:28px; }
-    h1 { margin:0 0 8px; font-size:28px; }
-    h2 { margin: 18px 0 8px; font-size: 18px; }
-    p, li { line-height: 1.7; }
-    a { color:#7cc4ff; text-decoration:none; }
-    a:hover { text-decoration: underline; }
-    .muted { color:#9fb0c0; }
-    .tag { display:inline-block; padding:4px 10px; border-radius:999px;
-      border:1px solid #2a3b5f; background:#0e1730; margin:6px 8px 0 0; font-size:12px; color:#b9c7d6; }
-    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:16px; }
-    @media (max-width: 720px){ .grid{ grid-template-columns: 1fr; } }
-    .footer { margin-top: 14px; font-size: 12px; }
-    .btn { display:inline-block; padding:10px 14px; border-radius:12px;
-      border:1px solid #2a3b5f; background:#0e1730; }
+    :root{
+      --bg0:#060912;
+      --bg1:#0b1220;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --stroke: rgba(255,255,255,.10);
+      --text:#e6edf3;
+      --muted:#9fb0c0;
+      --brand:#7cc4ff;
+      --brand2:#a78bfa;
+      --ok:#34d399;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background:
+        radial-gradient(900px 500px at 10% 10%, rgba(124,196,255,.22), transparent 55%),
+        radial-gradient(700px 420px at 92% 18%, rgba(167,139,250,.20), transparent 60%),
+        radial-gradient(700px 520px at 30% 95%, rgba(52,211,153,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    a{ color:var(--brand); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{ max-width: 1080px; margin: 0 auto; padding: 28px 18px 60px; }
+
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding: 10px 12px;
+      border:1px solid var(--stroke);
+      border-radius: 16px;
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(10px);
+    }
+    .nav .left{ display:flex; align-items:center; gap:10px; }
+    .dot{ width:10px; height:10px; border-radius:999px; background: linear-gradient(135deg, var(--brand), var(--brand2)); box-shadow: 0 0 18px rgba(124,196,255,.35); }
+    .brand{ font-weight: 700; letter-spacing: .2px; }
+    .nav .right{ display:flex; gap:10px; flex-wrap: wrap; justify-content:flex-end; }
+
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero{
+      margin-top: 16px;
+      border:1px solid var(--stroke);
+      border-radius: 22px;
+      padding: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 240px at 20% 10%, rgba(124,196,255,.16), transparent 55%),
+                  radial-gradient(500px 240px at 80% 20%, rgba(167,139,250,.14), transparent 60%);
+      pointer-events:none;
+    }
+
+    .hero-inner{ position:relative; display:grid; grid-template-columns: 1.1fr .9fr; gap: 18px; align-items:center; }
+
+    @media (max-width: 860px){
+      .hero-inner{ grid-template-columns: 1fr; }
+    }
+
+    h1{ margin: 0 0 8px; font-size: 34px; letter-spacing: .2px; }
+    .lead{ margin:0; color: var(--muted); line-height: 1.7; }
+
+    .actions{ display:flex; gap:10px; flex-wrap: wrap; margin-top: 14px; }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 650;
+      font-size: 14px;
+      text-decoration:none;
+    }
+    .btn:hover{ text-decoration:none; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.09); }
+    .btn.primary{
+      border-color: rgba(124,196,255,.38);
+      background: linear-gradient(135deg, rgba(124,196,255,.22), rgba(167,139,250,.16));
+    }
+
+    .profile{
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    .avatar{
+      width: 132px; height: 132px; border-radius: 26px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.25);
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .sections{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 860px){
+      .sections{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border:1px solid var(--stroke);
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+
+    .card h2{ margin:0 0 10px; font-size: 16px; letter-spacing:.2px; }
+    .muted{ color: var(--muted); }
+
+    .tags{ display:flex; flex-wrap: wrap; gap: 8px; }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(0,0,0,.12);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .projects{ display:grid; gap: 10px; }
+
+    .proj{
+      border:1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    }
+    .proj .top{ display:flex; align-items:center; justify-content:space-between; gap: 10px; }
+    .proj .name{ font-weight: 750; }
+    .pill{
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid var(--stroke);
+      color: var(--muted);
+      background: rgba(0,0,0,.12);
+      white-space: nowrap;
+    }
+
+    .footer{ margin-top: 18px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; color: var(--muted); font-size: 12px; }
+    .k{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      border: 1px solid var(--stroke);
+      border-radius: 10px;
+      padding: 2px 8px;
+      background: rgba(0,0,0,.12);
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card">
-      <p class="muted">GitHub Pages · <a href="https://SELeven-SD.github.io/">https://SELeven-SD.github.io/</a></p>
-
-      <h1>SELeven-SD</h1>
-      <p class="muted">欢迎来到我的个人主页。</p>
-
-      <h2>快速链接</h2>
-      <p>
-        <a class="btn" href="https://github.com/SELeven-SD" target="_blank" rel="noreferrer">GitHub 主页</a>
-      </p>
-
-      <div class="grid">
-        <div>
-          <h2>项目</h2>
-          <ul>
-            <li>（你可以把想展示的仓库链接放这里）</li>
-            <li>例如：<a href="https://github.com/SELeven-SD" target="_blank" rel="noreferrer">https://github.com/SELeven-SD</a></li>
-          </ul>
-        </div>
-        <div>
-          <h2>技能（可选）</h2>
-          <div>
-            <span class="tag">Python</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Linux</span>
-          </div>
-          <p class="muted">（不想写方向的话，这一块也可以删掉。）</p>
-        </div>
+    <header class="nav">
+      <div class="left">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="brand">SELeven-SD</span>
+        <span class="chip">GitHub Pages</span>
       </div>
+      <div class="right">
+        <a class="chip" href="https://github.com/SELeven-SD" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="chip" href="#projects">Projects</a>
+        <a class="chip" href="#skills">Skills</a>
+        <a class="chip" href="#contact">Contact</a>
+      </div>
+    </header>
 
-      <p class="footer muted">最后更新：<span id="t"></span></p>
-    </div>
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div>
+            <h1>SELeven-SD</h1>
+            <p class="lead">这是我的个人主页（托管在 GitHub Pages）。你可以在这里放：自我介绍、项目、技能与联系方式。</p>
+
+            <div class="actions">
+              <a class="btn primary" href="https://github.com/SELeven-SD" target="_blank" rel="noreferrer">查看 GitHub</a>
+              <a class="btn" href="#projects">浏览项目</a>
+            </div>
+
+            <div style="margin-top:12px" class="muted">
+              站点地址：<a href="https://SELeven-SD.github.io/">https://SELeven-SD.github.io/</a>
+            </div>
+          </div>
+
+          <div class="profile">
+            <div class="avatar" title="GitHub Avatar">
+              <img src="https://github.com/SELeven-SD.png" alt="SELeven-SD avatar" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sections">
+        <section id="projects" class="card">
+          <h2>项目 Projects</h2>
+          <p class="muted">把你最想展示的仓库放这里（后面你给我仓库链接，我可以帮你改成真正的项目卡片）。</p>
+
+          <div class="projects" aria-label="projects">
+            <div class="proj">
+              <div class="top">
+                <div class="name"><a href="https://github.com/SELeven-SD" target="_blank" rel="noreferrer">github.com/SELeven-SD</a></div>
+                <div class="pill">Pinned</div>
+              </div>
+              <div class="muted" style="margin-top:6px; line-height:1.6;">我的 GitHub 主页（先占位：你可以替换成某个具体项目仓库）。</div>
+            </div>
+
+            <div class="proj">
+              <div class="top">
+                <div class="name">你的项目 #2</div>
+                <div class="pill">Coming soon</div>
+              </div>
+              <div class="muted" style="margin-top:6px; line-height:1.6;">一句话说明：这个项目解决了什么问题？用到了什么技术？</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="skills" class="card">
+          <h2>技能 Skills</h2>
+          <p class="muted">你说方向先不写，所以这里先放通用标签；不想要我也可以删掉。</p>
+          <div class="tags" role="list">
+            <span class="tag" role="listitem">Python</span>
+            <span class="tag" role="listitem">JavaScript</span>
+            <span class="tag" role="listitem">Linux</span>
+            <span class="tag" role="listitem">Git</span>
+          </div>
+
+          <div style="margin-top:14px" class="muted">
+            小提示：后面你确定方向后，我可以把这里改成更专业的分组（语言 / 框架 / 工具 / 领域）。
+          </div>
+        </section>
+
+        <section id="contact" class="card" style="grid-column: 1 / -1;">
+          <h2>联系 Contact</h2>
+          <div class="muted" style="line-height:1.7;">
+            GitHub：<a href="https://github.com/SELeven-SD" target="_blank" rel="noreferrer">@SELeven-SD</a>
+            <span class="k">（需要邮箱/其它链接的话告诉我，我可以加按钮和图标）</span>
+          </div>
+
+          <div class="footer">
+            <div>最后更新：<span id="t"></span></div>
+            <div>Build: <span class="k" id="build"></span></div>
+          </div>
+        </section>
+      </section>
+    </main>
   </div>
 
   <script>
-    document.getElementById('t').textContent = new Date().toISOString().slice(0, 10);
+    // Simple build info
+    const d = new Date();
+    document.getElementById('t').textContent = d.toISOString().slice(0, 10);
+    document.getElementById('build').textContent = d.toISOString();
   </script>
 </body>
 </html>
